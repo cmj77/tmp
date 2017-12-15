@@ -8,6 +8,13 @@ conn = psycopg2.connect("dbname='safenetworking' user='postgres' host='127.0.0.1
 cur = conn.cursor()
 
 cur.execute(
+"""create table if not exists dashboard (malwarefamily text, countm text, threattype text, counttt text, severity text, counts text, srcip text, countsrcip text, dstip text, countuniquesrc text, domain text, count text)"""
+)
+
+conn = psycopg2.connect("dbname='safenetworking' user='postgres' host='127.0.0.1' password=safeNETWORKING")
+cur = conn.cursor()
+
+cur.execute(
     """SELECT "domain", count(*) as count from snuniquedomains group by "domain" order by count desc limit 25"
 )
 conn.commit()
